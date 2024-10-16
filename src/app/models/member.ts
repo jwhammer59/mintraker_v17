@@ -5,6 +5,7 @@ export interface Member {
   firstName: string;
   middleInit: string;
   lastName: string;
+  familyId: string;
   phone: string;
   email: string;
   add1: string;
@@ -13,5 +14,5 @@ export interface Member {
   state: string;
   zip: string;
   ministries: Ministry[];
-  isActive: boolean;
+  memberIsActive: boolean;
 }
