@@ -79,4 +79,68 @@ export const routes: Routes = [
       ).then((m) => m.MinistryDetailComponent),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'family-ids',
+    loadComponent: () =>
+      import('./components/familyId/family-id.component').then(
+        (m) => m.FamilyIdComponent
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'add-family-id',
+    loadComponent: () =>
+      import(
+        './components/familyId/add-family-id/add-family-id.component'
+      ).then((m) => m.AddFamilyIdComponent),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'edit-family-id/:id',
+    loadComponent: () =>
+      import(
+        './components/familyId/edit-family-id/edit-family-id.component'
+      ).then((m) => m.EditFamilyIdComponent),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'family-id-detail/:id',
+    loadComponent: () =>
+      import(
+        './components/familyId/family-id-detail/family-id-detail.component'
+      ).then((m) => m.FamilyIdDetailComponent),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'providers',
+    loadComponent: () =>
+      import('./components/provider/provider.component').then(
+        (m) => m.ProviderComponent
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'add-provider',
+    loadComponent: () =>
+      import('./components/provider/add-provider/add-provider.component').then(
+        (m) => m.AddProviderComponent
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'edit-provider/:id',
+    loadComponent: () =>
+      import(
+        './components/provider/edit-provider/edit-provider.component'
+      ).then((m) => m.EditProviderComponent),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'provider-detail/:id',
+    loadComponent: () =>
+      import(
+        './components/provider/provider-detail/provider-detail.component'
+      ).then((m) => m.ProviderDetailComponent),
+    canActivate: [AuthGuard],
+  },
 ];

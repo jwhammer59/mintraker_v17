@@ -72,39 +72,40 @@ export class NavComponent implements OnDestroy {
         },
       ],
     },
+
     {
       label: 'Settings',
       icon: 'pi pi-fw pi-cog',
       items: [
         {
-          label: 'Rooms',
-          icon: 'pi pi-fw pi-key',
+          label: 'Family IDs',
+          icon: 'pi pi-fw pi-id-card',
           items: [
             {
-              label: 'Rooms',
-              icon: 'pi pi-fw pi-key',
-              routerLink: ['rooms'],
+              label: 'Family IDs',
+              icon: 'pi pi-fw pi-id-card',
+              routerLink: ['family-ids'],
             },
             {
-              label: 'Add Room',
+              label: 'Add Family ID',
               icon: 'pi pi-fw pi-plus',
-              routerLink: ['add-room'],
+              routerLink: ['add-family-id'],
             },
           ],
         },
         {
-          label: 'Stores',
-          icon: 'pi pi-fw pi-shop',
+          label: 'Providers',
+          icon: 'pi pi-fw pi-shield',
           items: [
             {
-              label: 'Stores',
-              icon: 'pi pi-fw pi-shop',
-              routerLink: ['stores'],
+              label: 'Providers',
+              icon: 'pi pi-fw pi-shield',
+              routerLink: ['providers'],
             },
             {
-              label: 'Add Store',
+              label: 'Add Provider',
               icon: 'pi pi-fw pi-plus',
-              routerLink: ['add-store'],
+              routerLink: ['add-provider'],
             },
           ],
         },
