@@ -1,0 +1,60 @@
+<app-header
+  [title]="headerTitle()"
+  [icon]="headerIcon()"
+  [logo]="headerLogo()"
+></app-header>
+
+<p-toast></p-toast>
+
+<div class="flex justify-content-center mt-4">
+  @if (errorMessage) {
+  <div>{{ errorMessage }}</div>
+  }
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <p-card
+      [style]="{ width: '375px' }"
+      header="Login Form"
+      styleClass="shadow-5"
+    >
+      <ng-template pTemplate="content">
+        <div class="grid p-fluid">
+          <div class="field col-12">
+            <label for="email">Email</label>
+            <input
+              type="text"
+              pInputText
+              id="email"
+              name="email"
+              placeholder="Email"
+              formControlName="email"
+            />
+            @if (f['email'].invalid && f['email'].dirty || (loginForm.invalid &&
+            this.submitted() && f['email'].invalid)) {
+            <small class="p-error">Email Invalid</small>
+            }
+          </div>
+          <div class="field col-12">
+            <label for="password">Password</label>
+            <p-password
+              formControlName="password"
+              [toggleMask]="true"
+            ></p-password>
+            @if(f['password'].invalid && f['password'].dirty ||
+            (loginForm.invalid && this.submitted() && f['password'].invalid)) {
+            <small class="p-error">Password Invalid</small>
+            }
+          </div>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <div class="flex justify-content-center mt-5">
+          <p-button
+            type="submit"
+            label="Sign In"
+            icon="pi pi-fw pi-sign-in"
+          ></p-button>
+        </div>
+      </ng-template>
+    </p-card>
+  </form>
+</div>
