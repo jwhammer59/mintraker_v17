@@ -1,1 +1,199 @@
-<p>add-family-id works!</p>
+<p-toast key="error"></p-toast>
+<p-toast key="success" (onClose)="goToFamilyIds()"></p-toast>
+<app-header
+  [title]="headerTitle()"
+  [icon]="headerIcon()"
+  [logo]="headerLogo()"
+></app-header>
+<app-body>
+  <app-card [header]="cardHeader()">
+    <form [formGroup]="addFamilyIdForm" (ngSubmit)="onSubmit(addFamilyIdForm)">
+      <div class="flex justify-content-center">
+        <p-card [style]="{ width: '60vw' }">
+          <ng-template pTemplate="content">
+            <div class="grid p-fluid">
+              <!-- Member ID & Full Name -->
+              <div class="field col-12 lg:col-6">
+                <label for="familyIdName">ID</label>
+                <input
+                  pInputText
+                  type="text"
+                  id="familyIdName"
+                  name="familyIdName"
+                  formControlName="familyIdName"
+                  placeholder="Enter Family ID"
+                  class="focus:border-primary w-full ng-invalid ng-touched"
+                />
+                @if((f['familyIdName'].invalid && f['familyIdName'].dirty) ||
+                (addFamilyIdForm.invalid && this.submitted() &&
+                f['familyIdName'].invalid)) {
+                <small id="familyIdName-help" class="p-error">{{
+                  getFamilyIdNameMessage()
+                }}</small>
+                }
+              </div>
+              <div class="field col-12 lg:col-6">
+                <label for="familyIdFullName">Full Name</label>
+                <input
+                  pInputText
+                  type="text"
+                  id="familyIdFullName"
+                  name="familyIdFullName"
+                  formControlName="familyIdFullName"
+                  placeholder="Enter Family ID Full Name"
+                  class="focus:border-primary w-full ng-invalid ng-touched"
+                />
+                @if((f['familyIdFullName'].invalid &&
+                f['familyIdFullName'].dirty) || (addFamilyIdForm.invalid &&
+                this.submitted() && f['familyIdFullName'].invalid)) {
+                <small id="familyIdFullName-help" class="p-error">{{
+                  getFamilyIdFullNameMessage()
+                }}</small>
+                }
+              </div>
+              <!-- Member Phone & Email -->
+              <div class="field col-12 lg:col-6">
+                <label for="familyIdPhone">Phone</label>
+                <p-inputMask
+                  styleClass="focus:border-primary w-full ng-invalid ng-touched"
+                  mask="(999) 999-9999"
+                  id="familyIdPhone"
+                  name="familyIdPhone"
+                  formControlName="familyIdPhone"
+                  placeholder="(999) 999-9999"
+                ></p-inputMask>
+                @if((f['familyIdPhone'].invalid && f['familyIdPhone'].dirty) ||
+                (addFamilyIdForm.invalid && this.submitted() &&
+                f['familyIdPhone'].invalid)) {
+                <small id="familyIdPhone-help" class="p-error"
+                  >Phone number is required</small
+                >
+                }
+              </div>
+              <div class="field col-12 lg:col-6">
+                <label for="familyIdEmail">Email</label>
+                <input
+                  id="familyIdEmail"
+                  pInputText
+                  type="email"
+                  formControlName="familyIdEmail"
+                  class="focus:border-primary w-full ng-invalid ng-touched"
+                  placeholder="Enter Family ID Email"
+                />
+                @if((f['familyIdEmail'].invalid && f['familyIdEmail'].dirty) ||
+                (addFamilyIdForm.invalid && this.submitted() &&
+                f['familyIdEmail'].invalid)) {
+                <small id="familyIdEmail-help" class="p-error"
+                  >Email is required</small
+                >
+                }
+              </div>
+              <!-- Member Address 1 & 2 -->
+              <div class="field col-12 lg:col-6">
+                <label for="familyIdAdd1">Address 1</label>
+                <input
+                  id="familyIdAdd1"
+                  pInputText
+                  type="text"
+                  formControlName="familyIdAdd1"
+                  class="focus:border-primary w-full ng-invalid ng-touched"
+                  placeholder="Enter Family ID Address"
+                />
+                @if((f['familyIdAdd1'].invalid && f['familyIdAdd1'].dirty) ||
+                (addFamilyIdForm.invalid && this.submitted() &&
+                f['familyIdAdd1'].invalid)) {
+                <small id="familyIdAdd1-help" class="p-error"
+                  >Family ID address required</small
+                >
+                }
+              </div>
+              <div class="field col-12 lg:col-6">
+                <label for="familyIdAdd2">Address 2</label>
+                <input
+                  id="familyIdAdd2"
+                  pInputText
+                  type="text"
+                  formControlName="familyIdAdd2"
+                  class="focus:border-primary w-full"
+                />
+              </div>
+              <!-- Member City, State & Zipcode -->
+              <div class="field col-12 lg:col-4">
+                <label for="familyIdCity">City</label>
+                <input
+                  id="familyIdCity"
+                  pInputText
+                  type="text"
+                  formControlName="familyIdCity"
+                  class="focus:border-primary w-full ng-invalid ng-touched"
+                  placeholder="Enter a Family ID city"
+                />
+                @if((f['familyIdCity'].invalid && f['familyIdCity'].dirty) ||
+                (addFamilyIdForm.invalid && this.submitted() &&
+                f['familyIdCity'].invalid)) {
+                <small id="familyIdCity-help" class="p-error"
+                  >Family ID city required.</small
+                >
+                }
+              </div>
+              <div class="field col-12 lg:col-4">
+                <label for="familyIdState">State</label>
+                <p-dropdown
+                  [options]="states"
+                  name="familyIdState"
+                  id="familyIdState"
+                  formControlName="familyIdState"
+                  placeholder="Select a Family ID state"
+                ></p-dropdown>
+                @if((f['familyIdState'].invalid && f['familyIdState'].dirty) ||
+                (addFamilyIdForm.invalid && this.submitted() &&
+                f['familyIdState'].invalid)) {
+                <small id="familyIdState-help" class="p-error"
+                  >Family ID state is required</small
+                >
+                }
+              </div>
+              <div class="field col-12 lg:col-4">
+                <label for="familyIdZip">Zipcode</label>
+                <p-inputMask
+                  styleClass="focus:border-primary w-full ng-invalid ng-touched"
+                  mask="99999?-9999"
+                  id="familyIdZip"
+                  name="familyIdZip"
+                  formControlName="familyIdZip"
+                  placeholder="99999"
+                ></p-inputMask>
+                @if((f['familyIdZip'].invalid && f['familyIdZip'].dirty) ||
+                (addFamilyIdForm.invalid && this.submitted() &&
+                f['familyIdZip'].invalid)) {
+                <small id="familyIdZip-help" class="p-error"
+                  >Zipcode is required</small
+                >
+                }
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <div class="flex justify-content-end">
+              <p-button
+                label="Save"
+                icon="pi pi-fw pi-save"
+                type="submit"
+                severity="success"
+                [text]="true"
+              ></p-button>
+              <p-button
+                label="Cancel"
+                icon="pi pi-fw pi-times"
+                type="button"
+                severity="warning"
+                [text]="true"
+                (onClick)="onCancelAddFamilyId()"
+              ></p-button>
+            </div>
+          </ng-template>
+        </p-card>
+      </div>
+    </form>
+  </app-card>
+</app-body>
