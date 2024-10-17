@@ -1,4 +1,5 @@
 import { Component, OnInit, NgZone, signal, inject } from '@angular/core';
+import { CommonModule, Location } from '@angular/common';
 import { Router } from '@angular/router';
 
 import {
@@ -32,6 +33,7 @@ import { PrimeNGConfig, MessageService } from 'primeng/api';
   selector: 'app-add-family-id',
   standalone: true,
   imports: [
+    CommonModule,
     ReactiveFormsModule,
     HeaderComponent,
     BodyComponent,
@@ -51,6 +53,9 @@ export class AddFamilyIdComponent implements OnInit {
   headerTitle = signal('Add Family ID');
   headerIcon = signal('pi pi-fw pi-plus');
   headerLogo = signal('mtp.png');
+  headerBtnVisible = signal(true);
+  headerBtnLabel = signal('Back');
+  headerBtnIcon = signal('pi pi-fw pi-arrow-circle-left');
 
   cardHeader = signal('Add Family ID Form');
 
@@ -58,6 +63,7 @@ export class AddFamilyIdComponent implements OnInit {
 
   private familyIdService = inject(FamilyIDService);
   private messageService = inject(MessageService);
+  private location = inject(Location);
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private ngZone = inject(NgZone);
@@ -165,5 +171,9 @@ export class AddFamilyIdComponent implements OnInit {
     this.ngZone.run(() => {
       this.router.navigate(['family-ids']);
     });
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

@@ -1,1 +1,145 @@
-<p>family-id works!</p>
+<p-toast></p-toast>
+<app-header
+  [title]="headerTitle()"
+  [icon]="headerIcon()"
+  [logo]="headerLogo()"
+  [buttonVisible]="headerBtnVisible()"
+  [buttonIcon]="headerBtnIcon()"
+  [buttonLabel]="headerBtnLabel()"
+  (buttonAction)="goToAddFamilyId()"
+></app-header>
+<app-body>
+  <app-card>
+    <div>
+      @if(allFamilyIds$ | async; as allFamilyIds) {
+
+      <p-table
+        #familyIdDt
+        [value]="allFamilyIds"
+        dataKey="id"
+        [rows]="10"
+        [loading]="loading"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [paginator]="true"
+        [globalFilterFields]="[
+          'familyIdName',
+          'familyIdFullName',
+          'familyIdPhone',
+          'familyIdEmail'
+        ]"
+        [tableStyle]="{ 'min-width': '75rem' }"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="familyIdName">
+              <div class="flex justify-content-center">
+                Family ID
+                <p-sortIcon field="familyIdName"></p-sortIcon>
+                <p-columnFilter
+                  type="text"
+                  field="familyIdName"
+                  display="menu"
+                ></p-columnFilter>
+              </div>
+            </th>
+            <th pSortableColumn="familyIdFullName">
+              <div class="flex justify-content-center">
+                Full Name
+                <p-sortIcon field="familyIdFullName"></p-sortIcon>
+                <p-columnFilter
+                  type="text"
+                  field="familyIdFullName"
+                  display="menu"
+                ></p-columnFilter>
+              </div>
+            </th>
+            <th>
+              <div class="flex justify-content-center">Email</div>
+            </th>
+            <th>
+              <div class="flex justify-content-center">Phone</div>
+            </th>
+            <th>
+              <div class="flex justify-content-center">Actions</div>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-familyId>
+          <tr>
+            <td>
+              <div class="flex justify-content-center">
+                {{ familyId.familyIdName }}
+              </div>
+            </td>
+            <td>
+              <div class="flex justify-content-center">
+                {{ familyId.familyIdFullName }}
+              </div>
+            </td>
+            <td>
+              <div class="flex justify-content-center">
+                {{ familyId.familyIdEmail }}
+              </div>
+            </td>
+            <td>
+              <div class="flex justify-content-center">
+                {{ familyId.familyIdPhone }}
+              </div>
+            </td>
+            <td>
+              <div class="flex justify-content-center">
+                <div class="flex justify-content-around">
+                  <p-button
+                    [text]="true"
+                    icon="pi pi-info-circle"
+                    [text]="true"
+                    severity="info"
+                    (onClick)="goToFamilyIdDetail(familyId.id)"
+                    pTooltip="Details"
+                    tooltipPosition="bottom"
+                  ></p-button>
+                  <p-button
+                    icon="pi pi-pencil"
+                    [text]="true"
+                    severity="warning"
+                    (onClick)="goToEditFamilyId(familyId.id)"
+                    pTooltip="Edit"
+                    tooltipPosition="bottom"
+                  ></p-button>
+                  <p-button
+                    icon="pi pi-trash"
+                    [text]="true"
+                    severity="danger"
+                    (onClick)="onDeleteFamilyId(familyId.id)"
+                    pTooltip="Edit"
+                    tooltipPosition="bottom"
+                  ></p-button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="8">No data found...</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+          <div class="flex align-items-center justify-content-between">
+            Total Items:
+            {{ allFamilyIds ? allFamilyIds.length : 0 }}
+          </div>
+        </ng-template>
+      </p-table>
+      }
+    </div>
+  </app-card>
+</app-body>
+
+<p-confirmDialog
+  [style]="{ width: '30vw' }"
+  [baseZIndex]="10000"
+  rejectButtonStyleClass="p-button-text"
+  acceptButtonStyleClass="p-button-text p-button-danger"
+  defaultFocus="reject"
+></p-confirmDialog>

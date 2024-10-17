@@ -4,6 +4,10 @@
   [title]="headerTitle()"
   [icon]="headerIcon()"
   [logo]="headerLogo()"
+  [buttonVisible]="headerBtnVisible()"
+  [buttonIcon]="headerBtnIcon()"
+  [buttonLabel]="headerBtnLabel()"
+  (buttonAction)="goBack()"
 ></app-header>
 <app-body>
   <app-card [header]="cardHeader()">
