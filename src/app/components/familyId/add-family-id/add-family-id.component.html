@@ -13,7 +13,9 @@
   <app-card [header]="cardHeader()">
     <form [formGroup]="addFamilyIdForm" (ngSubmit)="onSubmit(addFamilyIdForm)">
       <div class="flex justify-content-center">
-        <p-card [style]="{ width: '60vw' }">
+        <p-card
+          [style]="{ width: '60vw', boxShadow: '0px 0px 5px 1px rgba(245,235,245,0.6)', }"
+        >
           <ng-template pTemplate="content">
             <div class="grid p-fluid">
               <!-- Member ID & Full Name -->
