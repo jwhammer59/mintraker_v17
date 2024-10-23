@@ -1,1 +1,49 @@
-<p>family-id-detail works!</p>
+<app-header
+  [title]="headerTitle()"
+  [icon]="headerIcon()"
+  [logo]="headerLogo()"
+  [buttonVisible]="headerBtnVisible()"
+  [buttonLabel]="headerBtnLabel()"
+  [buttonIcon]="headerBtnIcon()"
+  (buttonAction)="goBack()"
+></app-header>
+<app-body>
+  <app-card [header]="cardHeader()">
+    <div class="flex justify-content-center">
+      @if(familyId) {
+      <p-card
+        header="{{ familyId.familyIdName }}"
+        subheader="{{ familyId.familyIdFullName }}"
+        [style]="{ width: '50vw', boxShadow: '0px 0px 5px 1px rgba(245,235,245,0.6)', }"
+      >
+        <ng-template pTemplate="content">
+          <div>
+            <p>{{ familyId.familyIdAdd1 }}</p>
+            <p>{{ familyId.familyIdAdd2 }}</p>
+            <p>
+              {{ familyId.familyIdCity }}, {{ familyId.familyIdState }}
+              {{ familyId.familyIdZip }}
+            </p>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <div class="flex justify-content-between">
+            <div>
+              <p>
+                <span class="font-bold mr-2">Email:</span>
+                {{ familyId.familyIdEmail }}
+              </p>
+            </div>
+            <div>
+              <p>
+                <span class="font-bold mr-2">Phone:</span>
+                {{ familyId.familyIdPhone }}
+              </p>
+            </div>
+          </div>
+        </ng-template>
+      </p-card>
+      }
+    </div>
+  </app-card>
+</app-body>
