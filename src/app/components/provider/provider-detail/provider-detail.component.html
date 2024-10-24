@@ -1,1 +1,67 @@
-<p>provider-detail works!</p>
+<app-header
+  [title]="headerTitle()"
+  [icon]="headerIcon()"
+  [logo]="headerLogo()"
+  [buttonVisible]="headerBtnVisible()"
+  [buttonLabel]="headerBtnLabel()"
+  [buttonIcon]="headerBtnIcon()"
+  (buttonAction)="goBack()"
+></app-header>
+<app-body>
+  <app-card [header]="cardHeader()">
+    <div class="flex justify-content-center">
+      @if(provider) {
+      <p-card
+        header="{{ provider.providerNameId }}"
+        subheader="{{ provider.providerFullName }}"
+        [style]="{ width: '50vw', boxShadow: '0px 0px 5px 1px rgba(245,235,245,0.6)', }"
+      >
+        <ng-template pTemplate="content">
+          <div class="grid p-fluid">
+            <div class="col-12 lg:col-6">
+              <p>{{ provider.providerAdd1 }}</p>
+              <p>{{ provider.providerAdd2 }}</p>
+              <p>
+                {{ provider.providerCity }}, {{ provider.providerState }}
+                {{ provider.providerZip }}
+              </p>
+            </div>
+            <div class="col-12 lg:col-6">
+              <p>
+                <span class="font-bold mr-2">Provider Type:</span>
+                {{ provider.providerType }}
+              </p>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <div class="grid p-fluid">
+            <div class="col-12 lg:col-4 flex justify-content-center">
+              <p>
+                <span class="font-bold mr-2">Email:</span>
+                {{ provider.providerEmail }}
+              </p>
+            </div>
+            <div class="col-12 lg:col-4 flex justify-content-center">
+              <p>
+                <span class="font-bold mr-2">Is Active:</span>
+                <p-checkbox
+                  [(ngModel)]="provider.providerIsActive"
+                  [binary]="true"
+                  inputId="binary"
+                ></p-checkbox>
+              </p>
+            </div>
+            <div class="col-12 lg:col-4 flex justify-content-center">
+              <p>
+                <span class="font-bold mr-2">Phone:</span>
+                {{ provider.providerPhone }}
+              </p>
+            </div>
+          </div>
+        </ng-template>
+      </p-card>
+      }
+    </div>
+  </app-card>
+</app-body>

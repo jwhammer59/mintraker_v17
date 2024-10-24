@@ -1,1 +1,237 @@
-<p>edit-provider works!</p>
+<p-toast key="error"></p-toast>
+<p-toast key="success" (onClose)="goToProviders()"></p-toast>
+<app-header
+  [title]="headerTitle()"
+  [icon]="headerIcon()"
+  [logo]="headerLogo()"
+  [buttonVisible]="headerBtnVisible()"
+  [buttonIcon]="headerBtnIcon()"
+  [buttonLabel]="headerBtnLabel()"
+  (buttonAction)="goBack()"
+></app-header>
+<app-body>
+  <app-card [header]="cardHeader()">
+    <form
+      [formGroup]="editProviderForm"
+      (ngSubmit)="onSubmit(editProviderForm)"
+    >
+      <div class="flex justify-content-center">
+        <p-card
+          [style]="{ width: '60vw',boxShadow: '0px 0px 5px 1px rgba(245,235,245,0.6)', }"
+        >
+          <ng-template pTemplate="content">
+            <div class="grid p-fluid">
+              <!-- Member ID & Full Name -->
+              <div class="field col-12 lg:col-4">
+                <label for="providerNameId">ID</label>
+                <input
+                  pInputText
+                  type="text"
+                  id="providerNameId"
+                  name="providerNameId"
+                  formControlName="providerNameId"
+                  placeholder="Enter Provider ID"
+                  class="focus:border-primary w-full ng-invalid ng-touched"
+                />
+                @if((f['providerNameId'].invalid && f['providerNameId'].dirty)
+                || (editProviderForm.invalid && this.submitted() &&
+                f['providerNameId'].invalid)) {
+                <small id="providerNameId-help" class="p-error">{{
+                  getProviderNameIdMessage()
+                }}</small>
+                }
+              </div>
+              <div class="field col-12 lg:col-4">
+                <label for="providerFullName">Full Name</label>
+                <input
+                  pInputText
+                  type="text"
+                  id="providerFullName"
+                  name="providerFullName"
+                  formControlName="providerFullName"
+                  placeholder="Enter Provider Full Name"
+                  class="focus:border-primary w-full ng-invalid ng-touched"
+                />
+                @if((f['providerFullName'].invalid &&
+                f['providerFullName'].dirty) || (editProviderForm.invalid &&
+                this.submitted() && f['providerFullName'].invalid)) {
+                <small id="providerFullName-help" class="p-error">{{
+                  getProviderFullNameMessage()
+                }}</small>
+                }
+              </div>
+              <div class="field col-12 lg:col-4">
+                <label for="providerType">Provider Type</label>
+                <p-dropdown
+                  [options]="providerTypes"
+                  name="providerType"
+                  id="providerType"
+                  formControlName="providerType"
+                  placeholder="Select Provider State"
+                  styleClass="focus:border-primary w-full ng-invalid ng-touched"
+                ></p-dropdown>
+                @if((f['providerType'].invalid && f['providerType'].dirty) ||
+                (editProviderForm.invalid && this.submitted() &&
+                f['providerType'].invalid)) {
+                <small id="providerType-help" class="p-error"
+                  >Provider Type is required</small
+                >
+                }
+              </div>
+              <!-- Member Phone & Email -->
+              <div class="field col-12 lg:col-6">
+                <label for="providerPhone">Phone</label>
+                <p-inputMask
+                  styleClass="focus:border-primary w-full ng-invalid ng-touched"
+                  mask="(999) 999-9999"
+                  id="providerPhone"
+                  name="providerPhone"
+                  formControlName="providerPhone"
+                  placeholder="(999) 999-9999"
+                ></p-inputMask>
+                @if((f['providerPhone'].invalid && f['providerPhone'].dirty) ||
+                (editProviderForm.invalid && this.submitted() &&
+                f['providerPhone'].invalid)) {
+                <small id="providerPhone-help" class="p-error"
+                  >Provider phone number is required</small
+                >
+                }
+              </div>
+              <div class="field col-12 lg:col-6">
+                <label for="providerEmail">Email</label>
+                <input
+                  id="providerEmail"
+                  pInputText
+                  type="email"
+                  formControlName="providerEmail"
+                  class="focus:border-primary w-full ng-invalid ng-touched"
+                  placeholder="Enter Provider Email"
+                />
+                @if((f['providerEmail'].invalid && f['providerEmail'].dirty) ||
+                (editProviderForm.invalid && this.submitted() &&
+                f['providerEmail'].invalid)) {
+                <small id="providerEmail-help" class="p-error"
+                  >Provider email is required</small
+                >
+                }
+              </div>
+              <!-- Member Address 1 & 2 -->
+              <div class="field col-12 lg:col-6">
+                <label for="providerAdd1">Address 1</label>
+                <input
+                  id="providerAdd1"
+                  pInputText
+                  type="text"
+                  formControlName="providerAdd1"
+                  class="focus:border-primary w-full ng-invalid ng-touched"
+                  placeholder="Enter Provider Address"
+                />
+                @if((f['providerAdd1'].invalid && f['providerAdd1'].dirty) ||
+                (editProviderForm.invalid && this.submitted() &&
+                f['providerAdd1'].invalid)) {
+                <small id="providerAdd1-help" class="p-error"
+                  >Provider address required</small
+                >
+                }
+              </div>
+              <div class="field col-12 lg:col-6">
+                <label for="providerAdd2">Address 2</label>
+                <input
+                  id="providerAdd2"
+                  pInputText
+                  type="text"
+                  formControlName="providerAdd2"
+                  class="focus:border-primary w-full ng-touched"
+                />
+              </div>
+              <!-- Member City, State & Zipcode -->
+              <div class="field col-12 lg:col-4">
+                <label for="providerCity">City</label>
+                <input
+                  id="providerCity"
+                  pInputText
+                  type="text"
+                  formControlName="providerCity"
+                  class="focus:border-primary w-full ng-invalid ng-touched"
+                  placeholder="Enter Provider city"
+                />
+                @if((f['providerCity'].invalid && f['providerCity'].dirty) ||
+                (editProviderForm.invalid && this.submitted() &&
+                f['providerCity'].invalid)) {
+                <small id="providerCity-help" class="p-error"
+                  >Provider city required.</small
+                >
+                }
+              </div>
+              <div class="field col-12 lg:col-4">
+                <label for="providerState">State</label>
+                <p-dropdown
+                  [options]="states"
+                  name="providerState"
+                  id="providerState"
+                  formControlName="providerState"
+                  placeholder="Select Provider State"
+                  styleClass="focus:border-primary w-full ng-invalid ng-touched"
+                ></p-dropdown>
+                @if((f['providerState'].invalid && f['providerState'].dirty) ||
+                (editProviderForm.invalid && this.submitted() &&
+                f['providerState'].invalid)) {
+                <small id="providerState-help" class="p-error"
+                  >Provider state is required</small
+                >
+                }
+              </div>
+              <div class="field col-12 lg:col-4">
+                <label for="providerZip">Zipcode</label>
+                <p-inputMask
+                  styleClass="focus:border-primary w-full ng-invalid ng-touched"
+                  mask="99999?-9999"
+                  id="providerZip"
+                  name="providerZip"
+                  formControlName="providerZip"
+                  placeholder="99999"
+                ></p-inputMask>
+                @if((f['providerZip'].invalid && f['providerZip'].dirty) ||
+                (editProviderForm.invalid && this.submitted() &&
+                f['providerZip'].invalid)) {
+                <small id="providerZip-help" class="p-error"
+                  >Zipcode is required</small
+                >
+                }
+              </div>
+              <div class="col-12 flex justify-content-center">
+                <div>
+                  <p-checkbox
+                    formControlName="providerIsActive"
+                    [binary]="true"
+                    inputId="providerIsActive"
+                  ></p-checkbox>
+                  <label class="ml-2" for="providerIsActive">Is Active</label>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <div class="flex justify-content-end">
+              <p-button
+                label="Update"
+                icon="pi pi-fw pi-save"
+                type="submit"
+                severity="success"
+                [text]="true"
+              ></p-button>
+              <p-button
+                label="Cancel"
+                icon="pi pi-fw pi-times"
+                type="button"
+                severity="warning"
+                [text]="true"
+                (onClick)="onCancelAddProvider()"
+              ></p-button>
+            </div>
+          </ng-template>
+        </p-card>
+      </div>
+    </form>
+  </app-card>
+</app-body>
