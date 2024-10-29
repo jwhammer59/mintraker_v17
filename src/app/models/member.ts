@@ -17,5 +17,6 @@ export interface Member {
   memberDoctor: string;
   memberDentist: string;
   memberHospital: string;
-  memberIsActive: boolean;
+  isActive: boolean;
+  canBeMinistryHead: boolean;
 }
