@@ -7,6 +7,7 @@ import { BodyComponent } from '../../core/body/body.component';
 import { CardComponent } from '../../core/card/card.component';
 import { AddMinistryComponent } from './add-ministry/add-ministry.component';
 import { EditMinistryComponent } from './edit-ministry/edit-ministry.component';
+import { MinistryTableComponent } from './table/ministry-table.component';
 
 import { Ministry } from '../../models/ministry';
 import { MinistriesService } from '../../services/ministries.service';
@@ -24,7 +25,6 @@ import { ToolbarModule } from 'primeng/toolbar';
 import {
   PrimeNGConfig,
   ConfirmationService,
-  ConfirmEventType,
   MessageService,
 } from 'primeng/api';
 
@@ -42,6 +42,7 @@ import { map } from 'rxjs/operators';
     CardComponent,
     AddMinistryComponent,
     EditMinistryComponent,
+    MinistryTableComponent,
     ButtonModule,
     CheckboxModule,
     ConfirmDialogModule,
@@ -66,7 +67,6 @@ export class MinistryComponent implements OnInit {
   private messageService = inject(MessageService);
 
   ministries$!: Observable<Ministry[]>;
-  ministry!: Ministry;
   selectedMinistries$!: Observable<Ministry[]>;
   ministryIdToEdit: string = '';
 
@@ -86,7 +86,6 @@ export class MinistryComponent implements OnInit {
   }
 
   openEditMinistry(id: string) {
-    console.log(id);
     this.ministryIdToEdit = id;
     this.editMinistryDialog.set(true);
   }
@@ -109,44 +108,6 @@ export class MinistryComponent implements OnInit {
           detail: 'Minstries Deleted',
           life: 3000,
         });
-      },
-    });
-  }
-
-  editMinistry(ministry: Ministry) {}
-
-  deleteMinistry(id: string) {
-    this.confirmationService.confirm({
-      message: 'Are you sure that you want to proceed?',
-      header: 'Confirmation',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.messageService.add({
-          severity: 'info',
-          summary: 'Confirmed',
-          detail: 'Ministry Deleted!!',
-        });
-        this.ministriesService.deleteMinistry(id);
-        this.confirmationService.close();
-      },
-      reject: (type: any) => {
-        switch (type) {
-          case ConfirmEventType.REJECT:
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Rejected',
-              detail: 'You have rejected Ministry deletion.',
-            });
-            break;
-          case ConfirmEventType.CANCEL:
-            this.messageService.add({
-              severity: 'warn',
-              summary: 'Cancelled',
-              detail: 'You have cancelled Ministry deletion.',
-            });
-            break;
-        }
-        this.confirmationService.close();
       },
     });
   }

@@ -1,0 +1,103 @@
+@if(ministries$ | async; as ministries) {
+<p-table
+  #dt
+  [value]="ministries"
+  [rows]="10"
+  [paginator]="true"
+  [globalFilterFields]="['ministryName', 'ministryHead']"
+  [tableStyle]="{ 'min-width': '75rem' }"
+  [(selection)]="selectedMinistries$"
+  [rowHover]="true"
+  dataKey="id"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [showCurrentPageReport]="true"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      <h5 class="m-0">Manage Products</h5>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>
+        <p-tableHeaderCheckbox />
+      </th>
+      <th pSortableColumn="ministryName">
+        <div class="flex justify-content-center">
+          Ministry Name
+          <p-sortIcon field="ministryName"></p-sortIcon>
+        </div>
+      </th>
+      <th pSortableColumn="ministryChair">
+        <div class="flex justify-content-center">
+          Ministry Chairperson
+          <p-sortIcon field="ministryChair"></p-sortIcon>
+        </div>
+      </th>
+      <th>
+        <div class="flex justify-content-center">Is Active</div>
+      </th>
+      <th>
+        <div class="flex justify-content-center">Actions</div>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-ministry>
+    <tr>
+      <td>
+        <div class="flex justify-content-center">
+          <p-tableCheckbox [value]="ministry" />
+        </div>
+      </td>
+      <td>
+        <div class="flex justify-content-center">
+          {{ ministry.ministryName }}
+        </div>
+      </td>
+      <td>
+        <div class="flex justify-content-center">
+          {{ ministry.ministryChair }}
+        </div>
+      </td>
+      <td>
+        <div class="flex justify-content-center">
+          <p-checkbox
+            [(ngModel)]="ministry.ministryIsActive"
+            [binary]="true"
+            inputId="binary"
+            [disabled]="true"
+          ></p-checkbox>
+        </div>
+      </td>
+      <td>
+        <p-button
+          icon="pi pi-pencil"
+          class="mr-2"
+          [rounded]="true"
+          [outlined]="true"
+          severity="success"
+          (onClick)="onOpenEditMinistry(ministry.id)"
+        />
+        <p-button
+          icon="pi pi-trash"
+          severity="danger"
+          [rounded]="true"
+          [outlined]="true"
+          (onClick)="onDeleteMinistry(ministry.id)"
+        />
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="8">No data found...</td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+    <div class="flex align-items-center justify-content-between">
+      Total Stores:
+      {{ ministries ? ministries.length : 0 }}
+    </div>
+  </ng-template>
+</p-table>
+}
