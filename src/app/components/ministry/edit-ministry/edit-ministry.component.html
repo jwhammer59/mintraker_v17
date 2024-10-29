@@ -1,1 +1,60 @@
-<p>edit-ministry works!</p>
+<form [formGroup]="editMinistryForm" (ngSubmit)="onSubmit(editMinistryForm)">
+  <p-card>
+    <ng-template pTemplate="content">
+      <div class="field">
+        <label for="ministryName">Ministry Name</label>
+        <input
+          type="text"
+          pInputText
+          id="ministryName"
+          formControlName="ministryName"
+          required
+          autofocus
+        />
+        @if((f['ministryName'].invalid && f['ministryName'].dirty) ||
+        (editMinistryForm.invalid && this.submitted() &&
+        f['ministryName'].invalid)) {
+        <small class="p-error"> Ministry Name is required. </small>
+        }
+      </div>
+      <div class="field">
+        <label for="ministryChair">Ministry Chairperson</label>
+        @if(onlyMemberChairs$ | async; as onlyMemberChairs) {
+        <p-dropdown
+          formControlName="ministryChair"
+          inputId="ministryChair"
+          [options]="onlyMemberChairs"
+        >
+        </p-dropdown>
+        }
+      </div>
+      <div class="field">
+        <p-checkbox
+          id="ministryIsActive"
+          name="ministryIsActive"
+          label="Is Active"
+          formControlName="ministryIsActive"
+          [binary]="true"
+          inputId="binary"
+        />
+      </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <div class="flex justify-content-around">
+        <p-button
+          label="Cancel"
+          icon="pi pi-times"
+          [text]="true"
+          (onClick)="hideDialog()"
+        />
+        <p-button
+          label="Save"
+          icon="pi pi-check"
+          value="submit"
+          type="submit"
+          [text]="true"
+        />
+      </div>
+    </ng-template>
+  </p-card>
+</form>

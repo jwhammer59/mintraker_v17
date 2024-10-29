@@ -68,6 +68,7 @@ export class MinistryComponent implements OnInit {
   ministries$!: Observable<Ministry[]>;
   ministry!: Ministry;
   selectedMinistries$!: Observable<Ministry[]>;
+  ministryIdToEdit: string = '';
 
   newMinistryDialog = signal(false);
   editMinistryDialog = signal(false);
@@ -86,6 +87,7 @@ export class MinistryComponent implements OnInit {
 
   openEditMinistry(id: string) {
     console.log(id);
+    this.ministryIdToEdit = id;
     this.editMinistryDialog.set(true);
   }
 
@@ -159,6 +161,9 @@ export class MinistryComponent implements OnInit {
     if (type === 'cancel-add') {
       console.log('Cancel Add');
       this.newMinistryDialog.set(false);
+    }
+    if (type === 'cancel-edit') {
+      this.editMinistryDialog.set(false);
     }
   }
 }

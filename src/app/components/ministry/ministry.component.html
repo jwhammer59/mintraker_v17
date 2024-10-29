@@ -1,6 +1,7 @@
 <p-toast />
 <p-toast key="error" />
 <p-toast key="addSuccess" (onClose)="hideDialog('add')" />
+<p-toast key="editSuccess" (onClose)="hideDialog('edit')" />
 <app-header
   [title]="headerTitle()"
   [logo]="headerLogo()"
@@ -158,7 +159,12 @@
   styleClass="p-fluid"
 >
   <ng-content>
-    <app-edit-ministry></app-edit-ministry>
+    @if(editMinistryDialog() === true) {
+    <app-edit-ministry
+      [ministryId]="ministryIdToEdit"
+      (closeDialog)="hideDialog($event)"
+    ></app-edit-ministry>
+    }
   </ng-content>
 </p-dialog>
 

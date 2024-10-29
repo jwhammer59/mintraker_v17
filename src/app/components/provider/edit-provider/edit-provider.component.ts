@@ -173,7 +173,6 @@ export class EditProviderComponent implements OnInit {
   onSubmit({ value, valid }: { value: Provider; valid: boolean }) {
     this.selectedProviderName = value.providerNameId;
     this.submitted.set(true);
-
     if (!valid) {
       this.messageService.add({
         severity: 'error',
