@@ -13,21 +13,16 @@
       <ng-template pTemplate="left">
         <p-button
           severity="success"
-          label="New"
+          [text]="true"
+          label="Add New Ministry"
           icon="pi pi-plus"
-          class="mr-2"
           (onClick)="openNewMinistry()"
-        />
-        <p-button
-          severity="danger"
-          label="Delete"
-          icon="pi pi-trash"
-          (onClick)="deleteSelectedMinistries()"
-          [disabled]="!selectedMinistries$"
         />
       </ng-template>
     </p-toolbar>
-    <app-ministry-table></app-ministry-table>
+    <app-ministry-table
+      (openEditMinistry)="openEditMinistry($event)"
+    ></app-ministry-table>
   </app-card>
 </app-body>
 

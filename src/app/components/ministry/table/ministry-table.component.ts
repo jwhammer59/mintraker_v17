@@ -15,6 +15,7 @@ import { MinistriesService } from '../../../services/ministries.service';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { TableModule } from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
 
 import {
   PrimeNGConfig,
@@ -34,13 +35,13 @@ import { Observable } from 'rxjs';
     ButtonModule,
     CheckboxModule,
     TableModule,
+    TooltipModule,
   ],
   templateUrl: './ministry-table.component.html',
   styleUrl: './ministry-table.component.scss',
 })
 export class MinistryTableComponent implements OnInit {
-  @Output() openMinistry = new EventEmitter<string>();
-  @Output() deleteMinistry = new EventEmitter<string>();
+  @Output() openEditMinistry = new EventEmitter<string>();
 
   private ministriesService = inject(MinistriesService);
   private messageService = inject(MessageService);
@@ -48,7 +49,6 @@ export class MinistryTableComponent implements OnInit {
   private primengConfig = inject(PrimeNGConfig);
 
   ministries$!: Observable<Ministry[]>;
-  selectedMinistries$!: Observable<Ministry[]>;
 
   constructor() {
     this.ministries$ = this.ministriesService.getMinistries();
@@ -59,8 +59,7 @@ export class MinistryTableComponent implements OnInit {
   }
 
   onOpenEditMinistry(id: string) {
-    console.log(id);
-    this.openMinistry.emit(id);
+    this.openEditMinistry.emit(id);
   }
 
   onDeleteMinistry(id: string) {

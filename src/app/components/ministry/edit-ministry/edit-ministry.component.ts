@@ -172,7 +172,6 @@ export class EditMinistryComponent implements OnInit {
   }
 
   hideDialog() {
-    console.log('Hide dialog');
     this.editMinistryForm.reset();
     this.closeDialog.emit('cancel-edit');
   }

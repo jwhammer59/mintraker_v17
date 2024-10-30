@@ -5,8 +5,7 @@
   [rows]="10"
   [paginator]="true"
   [globalFilterFields]="['ministryName', 'ministryHead']"
-  [tableStyle]="{ 'min-width': '75rem' }"
-  [(selection)]="selectedMinistries$"
+  [tableStyle]="{ 'min-width': '50rem' }"
   [rowHover]="true"
   dataKey="id"
   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -19,9 +18,6 @@
   </ng-template>
   <ng-template pTemplate="header">
     <tr>
-      <th>
-        <p-tableHeaderCheckbox />
-      </th>
       <th pSortableColumn="ministryName">
         <div class="flex justify-content-center">
           Ministry Name
@@ -46,11 +42,6 @@
     <tr>
       <td>
         <div class="flex justify-content-center">
-          <p-tableCheckbox [value]="ministry" />
-        </div>
-      </td>
-      <td>
-        <div class="flex justify-content-center">
           {{ ministry.ministryName }}
         </div>
       </td>
@@ -70,21 +61,25 @@
         </div>
       </td>
       <td>
-        <p-button
-          icon="pi pi-pencil"
-          class="mr-2"
-          [rounded]="true"
-          [outlined]="true"
-          severity="success"
-          (onClick)="onOpenEditMinistry(ministry.id)"
-        />
-        <p-button
-          icon="pi pi-trash"
-          severity="danger"
-          [rounded]="true"
-          [outlined]="true"
-          (onClick)="onDeleteMinistry(ministry.id)"
-        />
+        <div class="flex justify-content-center">
+          <p-button
+            icon="pi pi-pencil"
+            class="mr-2"
+            pTooltip="Edit"
+            tooltipPosition="top"
+            [text]="true"
+            severity="success"
+            (onClick)="onOpenEditMinistry(ministry.id)"
+          />
+          <p-button
+            icon="pi pi-trash"
+            severity="danger"
+            pTooltip="Delete"
+            tooltipPosition="top"
+            [text]="true"
+            (onClick)="onDeleteMinistry(ministry.id)"
+          />
+        </div>
       </td>
     </tr>
   </ng-template>
