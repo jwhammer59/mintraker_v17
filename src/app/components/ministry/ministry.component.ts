@@ -20,16 +20,10 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
-import { ToolbarModule } from 'primeng/toolbar';
 
-import {
-  PrimeNGConfig,
-  ConfirmationService,
-  MessageService,
-} from 'primeng/api';
+import { PrimeNGConfig } from 'primeng/api';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-ministry',
@@ -51,7 +45,6 @@ import { map } from 'rxjs/operators';
     InputTextModule,
     TableModule,
     ToastModule,
-    ToolbarModule,
   ],
   templateUrl: './ministry.component.html',
   styleUrl: './ministry.component.scss',
@@ -60,14 +53,14 @@ export class MinistryComponent implements OnInit {
   headerTitle = signal('Minstries');
   headerIcon = signal('pi pi-fw pi-heart');
   headerLogo = signal('mtp.png');
+  headerBtnIcon = signal('pi pi-fw pi-plus');
+  headerBtnLabel = signal('Add New Ministry');
+  headerBtnVisible = signal(true);
 
   private ministriesService = inject(MinistriesService);
   private primengConfig = inject(PrimeNGConfig);
-  private confirmationService = inject(ConfirmationService);
-  private messageService = inject(MessageService);
 
   ministries$!: Observable<Ministry[]>;
-  selectedMinistries$!: Observable<Ministry[]>;
   ministryIdToEdit: string = '';
 
   newMinistryDialog = signal(false);
@@ -88,28 +81,6 @@ export class MinistryComponent implements OnInit {
   openEditMinistry(id: string) {
     this.ministryIdToEdit = id;
     this.editMinistryDialog.set(true);
-  }
-
-  deleteSelectedMinistries() {
-    this.confirmationService.confirm({
-      message: 'Are you sure you want to delete the selected ministrys?',
-      header: 'Confirm',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.selectedMinistries$ = this.ministries$.pipe(
-          map((ministries) =>
-            ministries.filter((ministry) => ministry.id === 'Physician')
-          )
-        );
-
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'Minstries Deleted',
-          life: 3000,
-        });
-      },
-    });
   }
 
   hideDialog(type: string) {

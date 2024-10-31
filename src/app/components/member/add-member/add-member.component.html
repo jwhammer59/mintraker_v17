@@ -1,1 +1,395 @@
-<p>add-member works!</p>
+<p-toast key="error" />
+<p-toast key="success" (onClose)="goToMembers()" />
+<app-header
+  [title]="headerTitle()"
+  [icon]="headerIcon()"
+  [logo]="headerLogo()"
+  [buttonVisible]="headerBtnVisible()"
+  [buttonIcon]="headerBtnIcon()"
+  [buttonLabel]="headerBtnLabel()"
+  (buttonAction)="goBack()"
+></app-header>
+<app-body>
+  <app-card [header]="cardHeader()">
+    <p-toolbar styleClass="py-0">
+      <ng-template pTemplate="left">
+        <p-button
+          label="Add Member Medical Info"
+          icon="pi pi-fw pi-shield"
+          [text]="true"
+          severity="info"
+          (onClick)="onOpenAddMedicalDialog()"
+        ></p-button>
+      </ng-template>
+      <ng-template pTemplate="right">
+        <p-button
+          label="Add Member Ministries"
+          icon="pi pi-fw pi-key"
+          [text]="true"
+          severity="help"
+          (onClick)="onOpenMinsitriesDialog()"
+        ></p-button>
+      </ng-template>
+    </p-toolbar>
+    <form [formGroup]="addMemberForm" (ngSubmit)="onSubmit(addMemberForm)">
+      <p-card>
+        <ng-template pTemplate="content">
+          <!-- Beginning of Member Form -->
+          <div class="grid p-fluid">
+            <div class="field col-12 lg:col-4">
+              <label for="firstName">First Name</label>
+              <input
+                type="text"
+                pInputText
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full ng-invalid ng-touched"
+                name="firstName"
+                id="firstName"
+                formControlName="firstName"
+                placeholder="Enter First Name"
+              />
+              @if((f['firstName'].invalid && f['firstName'].dirty) ||
+              (addMemberForm.invalid && this.submitted() &&
+              f['firstName'].invalid)) {
+              <small id="firstName-help" class="p-error">
+                {{ getFirstNameMessage() }}</small
+              >
+              }
+            </div>
+            <div class="field col-12 lg:col-3">
+              <label for="middleInit">M.I.</label>
+              <input
+                type="text"
+                pInputText
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full ng-invalid ng-touched"
+                name="middleInit"
+                id="middleInit"
+                formControlName="middleInit"
+                placeholder="Enter Middle Initial Name"
+              />
+            </div>
+            <div class="field col-12 lg:col-5">
+              <label for="lastName">Last Name</label>
+              <input
+                type="text"
+                pInputText
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full ng-invalid ng-touched"
+                name="lastName"
+                id="lastName"
+                formControlName="lastName"
+                placeholder="Enter Last Name"
+              />
+              @if((f['lastName'].invalid && f['lastName'].dirty) ||
+              (addMemberForm.invalid && this.submitted() &&
+              f['lastName'].invalid)) {
+              <small id="lastName-help" class="p-error">
+                {{ getLastNameMessage() }}</small
+              >
+              }
+            </div>
+            <div class="field col-12 lg:col-4">
+              @if(allFamilyIds$ | async; as allFamilyIds) {
+              <label for="familyId">Family ID</label>
+              <p-dropdown
+                styleClass="text-base text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary p-inputtext-sm w-full"
+                [options]="allFamilyIds"
+                optionLabel="familyIdName"
+                optionValue="familyIdName"
+                name="familyId"
+                id="familyId"
+                formControlName="familyId"
+                placeholder="Select Family ID"
+              ></p-dropdown>
+              @if((f['familyId'].invalid && f['familyId'].dirty) ||
+              (addMemberForm.invalid && this.submitted() &&
+              f['familyId'].invalid)) {
+              <small id="familyId-help" class="p-error"
+                >Family ID is required.</small
+              >
+              } }
+            </div>
+            <div class="field col-12 lg:col-4">
+              <label for="phone">Phone</label>
+              <p-inputMask
+                styleClass="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full ng-invalid ng-touched"
+                mask="(999) 999-9999"
+                id="phone"
+                name="phone"
+                formControlName="phone"
+                placeholder="(999) 999-9999"
+              ></p-inputMask>
+              @if((f['phone'].invalid && f['phone'].dirty) ||
+              (addMemberForm.invalid && this.submitted() && f['phone'].invalid))
+              {
+              <small id="phone-help" class="p-error"
+                >Phone number is required.</small
+              >
+              }
+            </div>
+            <div class="field col-12 lg:col-4">
+              <label for="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                formControlName="email"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                placeholder="Enter Email"
+              />
+              @if((f['email'].invalid && f['email'].dirty) ||
+              (addMemberForm.invalid && this.submitted() && f['email'].invalid))
+              {
+              <small id="email-help" class="p-error">Email is required.</small>
+              }
+            </div>
+            <div class="field col-12 md:col-6">
+              <label for="add1">Address 1</label>
+              <input
+                id="add1"
+                type="text"
+                formControlName="add1"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                placeholder="Enter Address"
+              />
+              @if((f['add1'].invalid && f['add1'].dirty) ||
+              (addMemberForm.invalid && this.submitted() && f['add1'].invalid))
+              {
+              <small id="add1-help" class="p-error">Address required.</small>
+              }
+            </div>
+            <div class="field col-12 md:col-6">
+              <label for="add2">Address 2</label>
+              <input
+                id="add2"
+                type="text"
+                formControlName="add2"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              />
+            </div>
+            <div class="field col-12 md:col-4">
+              <label for="city">City</label>
+              <input
+                id="city"
+                type="text"
+                formControlName="city"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                placeholder="Enter a City"
+              />
+              @if((f['city'].invalid && f['city'].dirty) ||
+              (addMemberForm.invalid && this.submitted() && f['city'].invalid))
+              {
+              <small id="city-help" class="p-error">City required.</small>
+              }
+            </div>
+            <div class="field col-12 md:col-4">
+              <label for="state">State</label>
+              <p-dropdown
+                styleClass="text-base text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary p-inputtext-sm w-full"
+                [options]="states"
+                name="state"
+                id="state"
+                formControlName="state"
+                placeholder="Select State"
+              ></p-dropdown>
+              @if((f['state'].invalid && f['state'].dirty) ||
+              (addMemberForm.invalid && this.submitted() && f['state'].invalid))
+              {
+              <small id="state-help" class="p-error">State is required.</small>
+              }
+            </div>
+            <div class="field col-12 md:col-4">
+              <label for="zip">Zipcode</label>
+              <p-inputMask
+                styleClass="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full ng-invalid ng-touched"
+                mask="99999?-9999"
+                id="zip"
+                name="zip"
+                formControlName="zip"
+                placeholder="99999-9999"
+              ></p-inputMask>
+              @if((f['zip'].invalid && f['zip'].dirty) || (addMemberForm.invalid
+              && this.submitted() && f['zip'].invalid)) {
+              <small id="zip-help" class="p-error">Zipcode required.</small>
+              }
+            </div>
+            <div class="col-12 md:col-4">
+              <div class="field-checkbox mt-4 ml-8 flex justify-content-center">
+                <p-checkbox
+                  formControlName="isActive"
+                  [binary]="true"
+                  inputId="isActive"
+                  name="isActive"
+                ></p-checkbox>
+                <label for="isActive">Is Active?</label>
+              </div>
+            </div>
+            <div class="col-12 md:col-4">
+              <div class="field-checkbox mt-4 ml-8 flex justify-content-center">
+                <p-checkbox
+                  formControlName="isHeadOfFamily"
+                  [binary]="true"
+                  inputId="isHeadOfFamily"
+                  name="isHeadOfFamily"
+                ></p-checkbox>
+                <label for="isHeadOfFamily">Is Head of Family?</label>
+              </div>
+            </div>
+            <div class="col-12 md:col-4">
+              <div class="field-checkbox mt-4 ml-8 flex justify-content-center">
+                <p-checkbox
+                  formControlName="canBeMinistryHead"
+                  [binary]="true"
+                  inputId="canBeMinistryHead"
+                  name="canBeMinistryHead"
+                ></p-checkbox>
+                <label for="canBeMinistryHead">Is Head of a Ministry?</label>
+              </div>
+            </div>
+          </div>
+          <!-- End of Member Form -->
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <div class="flex justify-content-around">
+            <p-button
+              type="submit"
+              value="Submit"
+              label="Save"
+              icon="pi pi-save"
+              [outlined]="true"
+              severity="success"
+            ></p-button>
+            <p-button
+              label="Cancel"
+              icon="pi pi-times"
+              [outlined]="true"
+              severity="warning"
+              (onClick)="onCancelAddMember()"
+            ></p-button>
+          </div>
+        </ng-template>
+      </p-card>
+
+      <!-- Begin Add Medical Dialog -->
+      <p-dialog
+        header="Add Medical Info"
+        [modal]="true"
+        [(visible)]="showAddMedicalDialog"
+        [draggable]="false"
+        [resizable]="false"
+      >
+        <ng-template pTemplate="content">
+          @if(onlyDoctors$ | async; as doctors) {
+          <div class="field col-12">
+            <label for="doctor">Doctor</label>
+            <p-dropdown
+              styleClass="text-base text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary p-inputtext-sm w-full"
+              [options]="doctors"
+              optionLabel="providerFullName"
+              optionValue="providerFullName"
+              name="doctor"
+              id="doctor"
+              formControlName="doctor"
+              placeholder="Select doctor"
+            ></p-dropdown>
+          </div>
+          } @if(onlyDentists$ | async; as dentists) {
+          <div class="field col-12">
+            <label for="dentist">Dentist</label>
+            <p-dropdown
+              styleClass="text-base text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary p-inputtext-sm w-full"
+              [options]="dentists"
+              optionLabel="providerFullName"
+              optionValue="providerFullName"
+              name="dentist"
+              id="dentist"
+              formControlName="dentist"
+              placeholder="Select Dentist"
+            ></p-dropdown>
+          </div>
+          } @if(onlyHospitals$ | async; as hospitals) {
+          <div class="field col-12">
+            <label for="hospital">Hospital</label>
+            <p-dropdown
+              styleClass="text-base text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary p-inputtext-sm w-full"
+              [options]="hospitals"
+              optionLabel="providerFullName"
+              optionValue="providerFullName"
+              name="hospital"
+              id="hospital"
+              formControlName="hospital"
+              placeholder="Select Hospital"
+            ></p-dropdown>
+          </div>
+          }
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <div class="flex justify-content-around">
+            <div>
+              <p-button
+                label="Save"
+                icon="pi pi-fw pi-save"
+                [outlined]="true"
+                severity="success"
+                (onClick)="onCloseAddMedicalDialog()"
+              ></p-button>
+            </div>
+            <div>
+              <p-button
+                label="Cancel"
+                icon="pi pi-fw pi-times"
+                [outlined]="true"
+                severity="warning"
+                (onClick)="onCancelMedicalDialog()"
+              ></p-button>
+            </div>
+          </div>
+        </ng-template>
+      </p-dialog>
+      <!-- End Add Medical Dialog -->
+    </form>
+  </app-card>
+</app-body>
+<!-- Begin Add Ministries Dialog -->
+<p-dialog
+  header="Add Ministries"
+  [modal]="true"
+  [(visible)]="showAddMinistriesDialog"
+  [breakpoints]="{ '960px': '75vw' }"
+  [style]="{ width: '90vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <ng-template pTemplate="content">
+    <p-pickList
+      [source]="sourceMinistries"
+      [target]="targetMinistries"
+      sourceHeader="Available Ministries"
+      targetHeader="Selected Ministries"
+      [dragdrop]="true"
+      [responsive]="true"
+      [sourceStyle]="{ height: '20rem' }"
+      [targetStyle]="{ height: '20rem' }"
+      breakpoint="950px"
+      (onMoveToTarget)="sendToMinistriesTarget()"
+      (onMoveToSource)="sendToMinistriesSource()"
+    >
+      <ng-template let-ministry pTemplate="item">
+        <div class="flex flex-wrap p-2 align-items-center gap-3">
+          <div class="flex-1 flex flex-column gap-2">
+            <div class="flex align-items-center gap-2">
+              <i class="pi pi-key text-sm"></i>
+              <span>{{ ministry.ministryName }}</span>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-pickList>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <p-button
+      label="Cancel"
+      icon="pi pi-fw pi-times"
+      severity="warning"
+      (onClick)="onCancelMinistryDialog()"
+    ></p-button>
+  </ng-template>
+</p-dialog>
+<!-- End Add Ministries Dialog -->

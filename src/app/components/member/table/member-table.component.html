@@ -1,0 +1,149 @@
+@if(members$ | async; as members) {
+<p-table
+  [value]="members"
+  [rows]="10"
+  [paginator]="true"
+  [globalFilterFields]="['familyId', 'firstName', 'lastName', 'phone', 'email']"
+  [rowHover]="true"
+  dataKey="id"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [showCurrentPageReport]="true"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      <h5 class="m-0">Manage Members</h5>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="familyId">
+        <div class="flex justify-content-center">
+          Family ID
+          <p-sortIcon field="familyId"></p-sortIcon>
+        </div>
+      </th>
+      <th pSortableColumn="firstName">
+        <div class="flex justify-content-center">
+          First
+          <p-sortIcon field="firstName"></p-sortIcon>
+        </div>
+      </th>
+      <th pSortableColumn="lastName">
+        <div class="flex justify-content-center">
+          Last
+          <p-sortIcon field="lastName"></p-sortIcon>
+        </div>
+      </th>
+      <th>
+        <div class="flex justify-content-center">Phone</div>
+      </th>
+      <th>
+        <div class="flex justify-content-center">Email</div>
+      </th>
+      <th>
+        <div class="flex justify-content-center">Active?</div>
+      </th>
+      <th>
+        <div class="flex justify-content-center">Head of House?</div>
+      </th>
+      <th>
+        <div class="flex justify-content-center">Ministry Chair?</div>
+      </th>
+      <th>
+        <div class="flex justify-content-center">Actions</div>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-member>
+    <tr>
+      <td>
+        <div class="flex justify-content-center">
+          {{ member.familyId }}
+        </div>
+      </td>
+      <td>
+        <div class="flex justify-content-center">
+          {{ member.firstName }}
+        </div>
+      </td>
+      <td>
+        <div class="flex justify-content-center">
+          {{ member.lastName }}
+        </div>
+      </td>
+      <td>
+        <div class="flex justify-content-center">
+          {{ member.phone }}
+        </div>
+      </td>
+      <td>
+        <div class="flex justify-content-center">
+          {{ member.email }}
+        </div>
+      </td>
+      <td>
+        <div class="flex justify-content-center">
+          <p-checkbox
+            [(ngModel)]="member.isActive"
+            [binary]="true"
+            inputId="binary"
+            [disabled]="true"
+          ></p-checkbox>
+        </div>
+      </td>
+      <td>
+        <div class="flex justify-content-center">
+          <p-checkbox
+            [(ngModel)]="member.isHeadOfFamily"
+            [binary]="true"
+            inputId="binary"
+            [disabled]="true"
+          ></p-checkbox>
+        </div>
+      </td>
+      <td>
+        <div class="flex justify-content-center">
+          <p-checkbox
+            [(ngModel)]="member.canBeMinstryHead"
+            [binary]="true"
+            inputId="binary"
+            [disabled]="true"
+          ></p-checkbox>
+        </div>
+      </td>
+      <td>
+        <div class="flex justify-content-center">
+          <p-button
+            icon="pi pi-pencil"
+            class="mr-2"
+            pTooltip="Edit"
+            tooltipPosition="top"
+            [text]="true"
+            severity="success"
+            (onClick)="onEditMember(member.id)"
+          />
+          <p-button
+            icon="pi pi-trash"
+            severity="danger"
+            pTooltip="Delete"
+            tooltipPosition="top"
+            [text]="true"
+            (onClick)="onDeleteMember(member.id)"
+          />
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="8">No data found...</td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+    <div class="flex align-items-center justify-content-between">
+      Total Members:
+      {{ members ? members.length : 0 }}
+    </div>
+  </ng-template>
+</p-table>
+}

@@ -14,9 +14,10 @@ export interface Member {
   state: string;
   zip: string;
   ministries: Ministry[];
-  memberDoctor: string;
-  memberDentist: string;
-  memberHospital: string;
+  doctor: string;
+  dentist: string;
+  hospital: string;
   isActive: boolean;
+  isHeadOfFamily: boolean;
   canBeMinistryHead: boolean;
 }

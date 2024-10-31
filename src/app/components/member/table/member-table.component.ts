@@ -1,9 +1,17 @@
-import { Component, OnInit, inject, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  NgZone,
+  inject,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-import { Ministry } from '../../../models/ministry';
-import { MinistriesService } from '../../../services/ministries.service';
+import { Member } from '../../../models/member';
+import { MembersService } from '../../../services/members.service';
 
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -20,7 +28,7 @@ import {
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-ministry-table',
+  selector: 'app-member-table',
   standalone: true,
   imports: [
     CommonModule,
@@ -30,32 +38,36 @@ import { Observable } from 'rxjs';
     TableModule,
     TooltipModule,
   ],
-  templateUrl: './ministry-table.component.html',
-  styleUrl: './ministry-table.component.scss',
+  templateUrl: './member-table.component.html',
+  styleUrl: './member-table.component.scss',
 })
-export class MinistryTableComponent implements OnInit {
-  @Output() openEditMinistry = new EventEmitter<string>();
+export class MemberTableComponent implements OnInit {
+  @Output() openEditMember = new EventEmitter<string>();
 
-  private ministriesService = inject(MinistriesService);
+  private membersService = inject(MembersService);
+  private ngZone = inject(NgZone);
+  private router = inject(Router);
   private messageService = inject(MessageService);
   private confirmationService = inject(ConfirmationService);
   private primengConfig = inject(PrimeNGConfig);
 
-  ministries$!: Observable<Ministry[]>;
+  members$!: Observable<Member[]>;
 
   constructor() {
-    this.ministries$ = this.ministriesService.getMinistries();
+    this.members$ = this.membersService.getMembers();
   }
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
   }
 
-  onOpenEditMinistry(id: string) {
-    this.openEditMinistry.emit(id);
+  onEditMember(id: string) {
+    this.ngZone.run(() => {
+      this.router.navigate([`edit-member/${id}`]);
+    });
   }
 
-  onDeleteMinistry(id: string) {
+  onDeleteMember(id: string) {
     this.confirmationService.confirm({
       message: 'Are you sure that you want to proceed?',
       header: 'Confirmation',
@@ -64,9 +76,9 @@ export class MinistryTableComponent implements OnInit {
         this.messageService.add({
           severity: 'info',
           summary: 'Confirmed',
-          detail: 'Ministry Deleted!!',
+          detail: 'Member Deleted!!',
         });
-        this.ministriesService.deleteMinistry(id);
+        this.membersService.deleteMember(id);
         this.confirmationService.close();
       },
       reject: (type: any) => {
@@ -75,14 +87,14 @@ export class MinistryTableComponent implements OnInit {
             this.messageService.add({
               severity: 'error',
               summary: 'Rejected',
-              detail: 'You have rejected Ministry deletion.',
+              detail: 'You have rejected Member deletion.',
             });
             break;
           case ConfirmEventType.CANCEL:
             this.messageService.add({
               severity: 'warn',
               summary: 'Cancelled',
-              detail: 'You have cancelled Ministry deletion.',
+              detail: 'You have cancelled Member deletion.',
             });
             break;
         }

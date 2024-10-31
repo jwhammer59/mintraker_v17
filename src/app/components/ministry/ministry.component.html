@@ -6,20 +6,12 @@
   [title]="headerTitle()"
   [logo]="headerLogo()"
   [icon]="headerIcon()"
+  [buttonLabel]="headerBtnLabel()"
+  [buttonIcon]="headerBtnIcon()"
+  [buttonVisible]="headerBtnVisible()"
 ></app-header>
 <app-body>
   <app-card>
-    <p-toolbar>
-      <ng-template pTemplate="left">
-        <p-button
-          severity="success"
-          [text]="true"
-          label="Add New Ministry"
-          icon="pi pi-plus"
-          (onClick)="openNewMinistry()"
-        />
-      </ng-template>
-    </p-toolbar>
     <app-ministry-table
       (openEditMinistry)="openEditMinistry($event)"
     ></app-ministry-table>
