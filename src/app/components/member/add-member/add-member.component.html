@@ -98,6 +98,7 @@
                 id="familyId"
                 formControlName="familyId"
                 placeholder="Select Family ID"
+                (onClick)="checkForFullName()"
               ></p-dropdown>
               @if((f['familyId'].invalid && f['familyId'].dirty) ||
               (addMemberForm.invalid && this.submitted() &&

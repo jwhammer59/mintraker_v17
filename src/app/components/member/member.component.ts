@@ -68,4 +68,10 @@ export class MemberComponent implements OnInit {
       this.router.navigate(['add-member']);
     });
   }
+
+  goToEditMember(id: string) {
+    this.ngZone.run(() => {
+      this.router.navigate([`edit-member/${id}`]);
+    });
+  }
 }

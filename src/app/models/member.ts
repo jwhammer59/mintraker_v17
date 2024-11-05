@@ -5,6 +5,7 @@ export interface Member {
   firstName: string;
   middleInit: string;
   lastName: string;
+  fullName: string;
   familyId: string;
   phone: string;
   email: string;

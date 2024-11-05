@@ -125,6 +125,7 @@ export class AddMemberComponent implements OnInit {
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       middleInit: '',
       lastName: ['', [Validators.required, Validators.minLength(3)]],
+      fullName: '',
       familyId: ['', Validators.required],
       phone: ['', Validators.required],
       email: ['', Validators.required],
@@ -199,6 +200,22 @@ export class AddMemberComponent implements OnInit {
       : this.f['lastName'].hasError('minlength')
       ? 'Min length 3 characters'
       : '';
+  }
+
+  checkForFullName() {
+    if (this.f['firstName'].value === '' || this.f['lastName'].value === '') {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'First and Last Name Required before Family ID can be selected',
+        life: 3000,
+        key: 'error',
+      });
+    } else {
+      let tempFullName =
+        this.f['firstName'].value + ' ' + this.f['lastName'].value;
+      this.f['fullName'].setValue(tempFullName);
+    }
   }
 
   onSubmit({ value, valid }: { value: Member; valid: boolean }) {

@@ -43,34 +43,12 @@ export class NavComponent implements OnDestroy {
     {
       label: 'Members',
       icon: 'pi pi-fw pi-users',
-      items: [
-        {
-          label: 'Members',
-          icon: 'pi pi-fw pi-users',
-          routerLink: ['members'],
-        },
-        {
-          label: 'Add Member',
-          icon: 'pi pi-fw pi-user-plus',
-          routerLink: ['add-member'],
-        },
-      ],
+      routerLink: ['members'],
     },
     {
       label: 'Ministries',
       icon: 'pi pi-fw pi-heart',
-      items: [
-        {
-          label: 'Ministires',
-          icon: 'pi pi-fw pi-heart',
-          routerLink: ['ministries'],
-        },
-        {
-          label: 'Add Ministry',
-          icon: 'pi pi-fw pi-plus',
-          routerLink: ['add-ministry'],
-        },
-      ],
+      routerLink: ['ministries'],
     },
 
     {
@@ -80,34 +58,12 @@ export class NavComponent implements OnDestroy {
         {
           label: 'Family IDs',
           icon: 'pi pi-fw pi-id-card',
-          items: [
-            {
-              label: 'Family IDs',
-              icon: 'pi pi-fw pi-id-card',
-              routerLink: ['family-ids'],
-            },
-            {
-              label: 'Add Family ID',
-              icon: 'pi pi-fw pi-plus',
-              routerLink: ['add-family-id'],
-            },
-          ],
+          routerLink: ['family-ids'],
         },
         {
           label: 'Providers',
           icon: 'pi pi-fw pi-shield',
-          items: [
-            {
-              label: 'Providers',
-              icon: 'pi pi-fw pi-shield',
-              routerLink: ['providers'],
-            },
-            {
-              label: 'Add Provider',
-              icon: 'pi pi-fw pi-plus',
-              routerLink: ['add-provider'],
-            },
-          ],
+          routerLink: ['providers'],
         },
       ],
     },

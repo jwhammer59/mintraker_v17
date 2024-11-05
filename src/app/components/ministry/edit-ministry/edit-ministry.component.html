@@ -24,6 +24,10 @@
           formControlName="ministryChair"
           inputId="ministryChair"
           [options]="onlyMemberChairs"
+          name="ministryChair"
+          id="ministryChair"
+          optionLabel="fullName"
+          optionValue="fullName"
         >
         </p-dropdown>
         }
@@ -42,17 +46,19 @@
     <ng-template pTemplate="footer">
       <div class="flex justify-content-around">
         <p-button
-          label="Cancel"
-          icon="pi pi-times"
-          [text]="true"
-          (onClick)="hideDialog()"
-        />
-        <p-button
           label="Save"
-          icon="pi pi-check"
+          icon="pi pi-save"
           value="submit"
           type="submit"
           [text]="true"
+          severity="success"
+        />
+        <p-button
+          label="Cancel"
+          icon="pi pi-times"
+          [text]="true"
+          severity="warning"
+          (onClick)="hideDialog()"
         />
       </div>
     </ng-template>

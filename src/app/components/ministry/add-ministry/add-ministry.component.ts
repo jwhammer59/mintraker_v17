@@ -82,9 +82,9 @@ export class AddMinistryComponent implements OnInit {
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
-    this.getMemberChairs();
 
     setTimeout(() => {
+      this.getMemberChairs();
       this.processMinistryNameArray(this.allMinistriesArray);
     }, 2000);
   }

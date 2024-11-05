@@ -10,7 +10,9 @@
 ></app-header>
 <app-body>
   <app-card>
-    <app-member-table></app-member-table>
+    <app-member-table
+      (openEditMember)="goToEditMember($event)"
+    ></app-member-table>
   </app-card>
 </app-body>
 

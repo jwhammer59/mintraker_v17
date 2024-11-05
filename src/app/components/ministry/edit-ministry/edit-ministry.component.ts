@@ -88,7 +88,6 @@ export class EditMinistryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.ministryId);
     this.primengConfig.ripple = true;
     this.getMemberChairs();
 

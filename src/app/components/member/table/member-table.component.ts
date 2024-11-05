@@ -1,13 +1,5 @@
-import {
-  Component,
-  OnInit,
-  NgZone,
-  inject,
-  Output,
-  EventEmitter,
-} from '@angular/core';
+import { Component, OnInit, inject, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { Member } from '../../../models/member';
@@ -45,8 +37,6 @@ export class MemberTableComponent implements OnInit {
   @Output() openEditMember = new EventEmitter<string>();
 
   private membersService = inject(MembersService);
-  private ngZone = inject(NgZone);
-  private router = inject(Router);
   private messageService = inject(MessageService);
   private confirmationService = inject(ConfirmationService);
   private primengConfig = inject(PrimeNGConfig);
@@ -62,9 +52,7 @@ export class MemberTableComponent implements OnInit {
   }
 
   onEditMember(id: string) {
-    this.ngZone.run(() => {
-      this.router.navigate([`edit-member/${id}`]);
-    });
+    this.openEditMember.emit(id);
   }
 
   onDeleteMember(id: string) {
