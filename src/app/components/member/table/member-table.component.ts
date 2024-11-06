@@ -35,6 +35,7 @@ import { Observable } from 'rxjs';
 })
 export class MemberTableComponent implements OnInit {
   @Output() openEditMember = new EventEmitter<string>();
+  @Output() openMemberDetails = new EventEmitter<string>();
 
   private membersService = inject(MembersService);
   private messageService = inject(MessageService);
@@ -53,6 +54,10 @@ export class MemberTableComponent implements OnInit {
 
   onEditMember(id: string) {
     this.openEditMember.emit(id);
+  }
+
+  onMemberDetails(id: string) {
+    this.openMemberDetails.emit(id);
   }
 
   onDeleteMember(id: string) {

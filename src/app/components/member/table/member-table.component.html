@@ -114,6 +114,15 @@
       <td>
         <div class="flex justify-content-center">
           <p-button
+            icon="pi pi-exclamation-circle"
+            class="mr-2"
+            pTooltip="Details"
+            tooltipPosition="top"
+            [text]="true"
+            severity="success"
+            (onClick)="onMemberDetails(member.id)"
+          />
+          <p-button
             icon="pi pi-pencil"
             class="mr-2"
             pTooltip="Edit"

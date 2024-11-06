@@ -1,1 +1,190 @@
-<p>member-detail works!</p>
+<app-header
+  [title]="headerTitle()"
+  [icon]="headerIcon()"
+  [logo]="headerLogo()"
+  [buttonVisible]="headerBtnVisible()"
+  [buttonIcon]="headerBtnIcon()"
+  [buttonLabel]="headerBtnLabel()"
+  (buttonAction)="goBackToMembers()"
+></app-header>
+<app-body>
+  <app-card>
+    @if(member) {
+    <p-card header="{{ member.fullName }}" subheader="{{ member.familyId }}">
+      <p-tabView styleClass="tabview-custom">
+        <p-tabPanel>
+          <ng-template pTemplate="header">
+            <div class="flex align-items-center gap-2">
+              <span class="pi pi-user"></span>
+              <span class="font-bold white-space-nowrap m-0"> Personal </span>
+            </div>
+          </ng-template>
+          <div class="grid p-fluid">
+            <div class="col-12 md:col-4">
+              <div class="flex justify-content-start">
+                <span class="font-bold mr-3">First Name:</span>
+                <span class="font-italic">{{ member.firstName }}</span>
+              </div>
+            </div>
+            <div class="col-12 md:col-4">
+              <div class="flex justify-content-start">
+                <span class="font-bold mr-3">MI:</span>
+                <span class="font-italic">{{ member.middleInit }}</span>
+              </div>
+            </div>
+            <div class="col-12 md:col-4">
+              <div class="flex justify-content-start">
+                <span class="font-bold mr-3">Last Name:</span>
+                <span class="font-italic">{{ member.lastName }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="grid p-fluid">
+            <div class="col-12 md:col-4">
+              <div class="flex justify-content-start">
+                <span class="font-bold mr-3">Family ID:</span>
+                <span class="font-italic">{{ member.familyId }}</span>
+              </div>
+            </div>
+            <div class="col-12 md:col-4">
+              <div class="flex justify-content-start">
+                <span class="font-bold mr-3">Phone:</span>
+                <span class="font-italic">{{ member.phone }}</span>
+              </div>
+            </div>
+            <div class="col-12 md:col-4">
+              <div class="flex justify-content-start">
+                <span class="font-bold mr-3">Email:</span>
+                <span class="font-italic">{{ member.email }}</span>
+              </div>
+            </div>
+          </div>
+        </p-tabPanel>
+        <p-tabPanel header="Header II">
+          <ng-template pTemplate="header">
+            <div class="flex align-items-center gap-2">
+              <span class="pi pi-map"></span>
+              <span class="font-bold white-space-nowrap m-0"> Address </span>
+            </div>
+          </ng-template>
+          <div class="grid p-fluid">
+            <div class="col-12 md:col-4">
+              <div class="flex justify-content-start">
+                <span class="font-bold mr-3">Address 1:</span>
+                <span class="font-italic">{{ member.add1 }}</span>
+              </div>
+            </div>
+            <div class="col-12 md:col-4">
+              <div class="flex justify-content-start">
+                <span class="font-bold mr-3">Address 2:</span>
+                <span class="font-italic">{{ member.add2 }}</span>
+              </div>
+            </div>
+            <div class="col-12 md:col-4"></div>
+          </div>
+          <div class="grid p-fluid">
+            <div class="col-12 md:col-4">
+              <div class="flex justify-content-start">
+                <span class="font-bold mr-3">City:</span>
+                <span class="font-italic">{{ member.city }}</span>
+              </div>
+            </div>
+            <div class="col-12 md:col-4">
+              <div class="flex justify-content-start">
+                <span class="font-bold mr-3">State:</span>
+                <span class="font-italic">{{ member.state }}</span>
+              </div>
+            </div>
+            <div class="col-12 md:col-4">
+              <div class="flex justify-content-start">
+                <span class="font-bold mr-3">Zipcode:</span>
+                <span class="font-italic">{{ member.zip }}</span>
+              </div>
+            </div>
+          </div>
+        </p-tabPanel>
+        <p-tabPanel header="Header III">
+          <ng-template pTemplate="header">
+            <div class="flex align-items-center gap-2">
+              <span class="pi pi-shield"></span>
+              <span class="font-bold white-space-nowrap m-0"> Medical </span>
+            </div>
+          </ng-template>
+          <div class="grid p-fluid">
+            <div class="col-12 md:col-4">
+              <div class="flex justify-content-start">
+                <span class="font-bold mr-3">Physician:</span>
+                <span class="font-italic">{{ member.doctor }}</span>
+              </div>
+            </div>
+            <div class="col-12 md:col-4">
+              <div class="flex justify-content-start">
+                <span class="font-bold mr-3">Dentist:</span>
+                <span class="font-italic">{{ member.dentist }}</span>
+              </div>
+            </div>
+            <div class="col-12 md:col-4">
+              <div class="flex justify-content-start">
+                <span class="font-bold mr-3">Hospital:</span>
+                <span class="font-italic">{{ member.hospital }}</span>
+              </div>
+            </div>
+          </div>
+        </p-tabPanel>
+        <p-tabPanel header="Header IIII">
+          <ng-template pTemplate="header">
+            <div class="flex align-items-center gap-2">
+              <span class="pi pi-heart"></span>
+              <span class="font-bold white-space-nowrap m-0"> Ministries </span>
+            </div>
+          </ng-template>
+          @if(member) {
+          <ul>
+            @for(ministry of ministryNameArray; track ministry) {
+            <li [style]="{ 'list-style-type': 'none' }" class="mb-2">
+              {{ ministry }}
+            </li>
+            }
+          </ul>
+          }
+        </p-tabPanel>
+      </p-tabView>
+      <ng-template pTemplate="footer">
+        <div class="flex justify-content-around">
+          <div>
+            <p-checkbox
+              [(ngModel)]="member.isActive"
+              [disabled]="true"
+              [binary]="true"
+              inputId="isActive"
+            />
+            <label for="isActive"> Is Active?</label>
+          </div>
+          <div>
+            <div>
+              <p-checkbox
+                [(ngModel)]="member.isHeadOfFamily"
+                [disabled]="true"
+                [binary]="true"
+                inputId="isHeadOfFamily"
+              />
+              <label class="pr-2" for="isHeadOfFamily">
+                Is Head of Household?</label
+              >
+            </div>
+          </div>
+          <div>
+            <p-checkbox
+              [(ngModel)]="member.canBeMinistryHead"
+              [disabled]="true"
+              [binary]="true"
+              inputId="canBeMinistryHead"
+            />
+            <label for="canBeMinistryHead"> Can be Head of Ministry?</label>
+          </div>
+        </div>
+      </ng-template>
+    </p-card>
+    }
+  </app-card>
+</app-body>
