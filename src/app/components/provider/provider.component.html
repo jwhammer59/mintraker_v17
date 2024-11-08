@@ -10,12 +10,15 @@
 ></app-header>
 <app-body>
   <app-card>
-    <div>
+    <p-card
+      styleClass="border-1 border-200 border-solid"
+      header="Manage Providers"
+    >
       <app-provider-table
         (openEditProvider)="goToEditProvider($event)"
         (openProviderDetails)="goToProviderDetail($event)"
       ></app-provider-table>
-    </div>
+    </p-card>
   </app-card>
 </app-body>
 

@@ -12,6 +12,7 @@ import { FamilyidTableComponent } from './table/familyid-table.component';
 import { FamilyId } from '../../models/family-id';
 import { FamilyIDService } from '../../services/family-id.service';
 
+import { CardModule } from 'primeng/card';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 
@@ -29,6 +30,7 @@ import { Observable } from 'rxjs';
     BodyComponent,
     CardComponent,
     FamilyidTableComponent,
+    CardModule,
     ConfirmDialogModule,
     ToastModule,
   ],

@@ -1,1 +1,40 @@
-<p>dashboard works!</p>
+<app-header></app-header>
+<app-body>
+  <app-card>
+    <p-card
+      styleClass="border-1 border-200 border-solid mb-3"
+      header="Manage Members"
+    >
+      <app-member-table></app-member-table>
+    </p-card>
+    <p-card
+      styleClass="border-1 border-200 border-solid mb-3"
+      header="Manage Providers"
+    >
+      <app-provider-table></app-provider-table>
+    </p-card>
+    <div class="grid p-fluid">
+      <div class="col-12 md:col-6">
+        <p-card
+          styleClass="border-1 border-200 border-solid"
+          header="Manage Family ID's"
+        >
+          <app-familyid-table
+            (openEditFamilyId)="goToEditFamilyId($event)"
+            (openFamilyIdDetails)="goToFamilyIdDetail($event)"
+          ></app-familyid-table>
+        </p-card>
+      </div>
+      <div class="col-12 md:col-6">
+        <p-card
+          styleClass="border-1 border-200 border-solid"
+          header="Manage Ministries"
+        >
+          <app-ministry-table
+            (openEditMinistry)="goToEditMinistry($event)"
+          ></app-ministry-table>
+        </p-card>
+      </div>
+    </div>
+  </app-card>
+</app-body>

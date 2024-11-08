@@ -1,13 +1,6 @@
-import {
-  Component,
-  OnInit,
-  signal,
-  inject,
-  Input,
-  Output,
-  EventEmitter,
-} from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, signal, inject, NgZone } from '@angular/core';
+import { CommonModule, Location } from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import {
   ReactiveFormsModule,
@@ -15,6 +8,10 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
+
+import { HeaderComponent } from '../../../core/header/header.component';
+import { BodyComponent } from '../../../core/body/body.component';
+import { CardComponent } from '../../../core/card/card.component';
 
 import { Ministry } from '../../../models/ministry';
 import { MinistriesService } from '../../../services/ministries.service';
@@ -29,6 +26,7 @@ import { CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { ToastModule } from 'primeng/toast';
 
 import { PrimeNGConfig, MessageService } from 'primeng/api';
 
@@ -41,25 +39,40 @@ import { map } from 'rxjs/operators';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    HeaderComponent,
+    BodyComponent,
+    CardComponent,
     ButtonModule,
     CardModule,
     CheckboxModule,
     DropdownModule,
     InputTextModule,
+    ToastModule,
   ],
   templateUrl: './edit-ministry.component.html',
   styleUrl: './edit-ministry.component.scss',
 })
 export class EditMinistryComponent implements OnInit {
-  @Input() ministryId: string = '';
-  @Output() closeDialog = new EventEmitter<string>();
+  headerTitle = signal('Edit Ministry');
+  headerIcon = signal('pi pi-fw pi-user-pencil');
+  headerLogo = signal('mtp.png');
+  headerBtnVisible = signal(true);
+  headerBtnLabel = signal('Back');
+  headerBtnIcon = signal('pi pi-fw pi-arrow-circle-left');
+
+  cardHeader = signal('Edit Ministry Form');
+  submitted = signal(false);
 
   private ministriesService = inject(MinistriesService);
   private membersService = inject(MembersService);
   private loadingService = inject(LoadingService);
   private messageService = inject(MessageService);
-  private primengConfig = inject(PrimeNGConfig);
   private fb = inject(FormBuilder);
+  private ngZone = inject(NgZone);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private location = inject(Location);
+  private primengConfig = inject(PrimeNGConfig);
 
   allMinistriesArray: Ministry[] = [];
   ministryNameArray: string[] = [];
@@ -69,11 +82,10 @@ export class EditMinistryComponent implements OnInit {
   ministry!: Ministry;
   allMembers$!: Observable<Member[]>;
   onlyMemberChairs$!: Observable<Member[]>;
-  ministryRef: any;
-
-  submitted = signal(false);
 
   editMinistryForm!: FormGroup;
+  ministryRef: any;
+  id: string = '';
 
   constructor() {
     this.ministriesService.getMinistries().subscribe((ministries) => {
@@ -89,9 +101,10 @@ export class EditMinistryComponent implements OnInit {
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
+    this.id = this.route.snapshot.params['id'];
     this.getMemberChairs();
 
-    this.ministriesService.getMinistry(this.ministryId).subscribe((data) => {
+    this.ministriesService.getMinistry(this.id).subscribe((data) => {
       this.ministryRef = data;
     });
 
@@ -157,21 +170,31 @@ export class EditMinistryComponent implements OnInit {
         key: 'error',
       });
     } else {
-      this.ministriesService.updateMinistry(this.ministryId, value);
+      this.ministriesService.updateMinistry(this.id, value);
       this.messageService.add({
         severity: 'success',
         summary: 'Successful',
         detail: 'Ministry Updated',
         life: 3000,
-        key: 'editSuccess',
+        key: 'success',
       });
     }
 
     this.editMinistryForm.reset();
   }
 
-  hideDialog() {
+  onCancelEditMinistry() {
     this.editMinistryForm.reset();
-    this.closeDialog.emit('cancel-edit');
+    this.goToMinistries();
+  }
+
+  goToMinistries() {
+    this.ngZone.run(() => {
+      this.router.navigate(['ministries']);
+    });
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

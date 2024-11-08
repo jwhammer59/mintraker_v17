@@ -10,12 +10,14 @@
 ></app-header>
 <app-body>
   <app-card>
-    <div>
+    <p-card
+    styleClass="border-1 border-200 border-solid"
+    header="Manage Family ID's">
       <app-familyid-table
         (openEditFamilyId)="goToEditFamilyId($event)"
         (openFamilyIdDetails)="goToFamilyIdDetail($event)"
       ></app-familyid-table>
-    </div>
+    </p-card>
   </app-card>
 </app-body>
 

@@ -12,6 +12,7 @@ import { ProviderTableComponent } from './table/provider-table.component';
 import { Provider } from '../../models/provider';
 import { ProvidersService } from '../../services/providers.service';
 
+import { CardModule } from 'primeng/card';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 
@@ -29,6 +30,7 @@ import { Observable } from 'rxjs';
     BodyComponent,
     CardComponent,
     ProviderTableComponent,
+    CardModule,
     ConfirmDialogModule,
     ToastModule,
   ],

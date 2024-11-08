@@ -72,14 +72,6 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'ministry-detail/:id',
-    loadComponent: () =>
-      import(
-        './components/ministry/ministry-detail/ministry-detail.component'
-      ).then((m) => m.MinistryDetailComponent),
-    canActivate: [AuthGuard],
-  },
-  {
     path: 'family-ids',
     loadComponent: () =>
       import('./components/familyId/family-id.component').then(

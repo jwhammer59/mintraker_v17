@@ -1,7 +1,4 @@
 <p-toast />
-<p-toast key="error" />
-<p-toast key="addSuccess" (onClose)="hideDialog('add')" />
-<p-toast key="editSuccess" (onClose)="hideDialog('edit')" />
 <app-header
   [title]="headerTitle()"
   [logo]="headerLogo()"
@@ -9,50 +6,20 @@
   [buttonLabel]="headerBtnLabel()"
   [buttonIcon]="headerBtnIcon()"
   [buttonVisible]="headerBtnVisible()"
-  (buttonAction)="openNewMinistry()"
+  (buttonAction)="goToAddMinistry()"
 ></app-header>
 <app-body>
   <app-card>
-    <app-ministry-table
-      (openEditMinistry)="openEditMinistry($event)"
-    ></app-ministry-table>
+    <p-card
+      styleClass="border-1 border-200 border-solid"
+      header="Manage Ministries"
+    >
+      <app-ministry-table
+        (openEditMinistry)="goToEditMinistry($event)"
+      ></app-ministry-table>
+    </p-card>
   </app-card>
 </app-body>
-
-<!-- Add Ministry Dialog -->
-<p-dialog
-  [(visible)]="newMinistryDialog"
-  [style]="{ width: '450px' }"
-  closable="false"
-  closeOnEscape="false"
-  header="Add Ministry"
-  [modal]="true"
-  styleClass="p-fluid"
->
-  <ng-content>
-    <app-add-ministry (closeDialog)="hideDialog($event)"></app-add-ministry>
-  </ng-content>
-</p-dialog>
-
-<!-- Edit Ministry Dialog -->
-<p-dialog
-  [(visible)]="editMinistryDialog"
-  [style]="{ width: '450px' }"
-  closable="false"
-  closeOnEscape="false"
-  header="Edit Ministry"
-  [modal]="true"
-  styleClass="p-fluid"
->
-  <ng-content>
-    @if(editMinistryDialog() === true) {
-    <app-edit-ministry
-      [ministryId]="ministryIdToEdit"
-      (closeDialog)="hideDialog($event)"
-    ></app-edit-ministry>
-    }
-  </ng-content>
-</p-dialog>
 
 <!-- Delete Ministry Dialog -->
 <p-confirmDialog

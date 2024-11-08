@@ -73,7 +73,7 @@ export class EditMemberComponent {
   headerIcon = signal('pi pi-fw pi-user-pencil');
   headerLogo = signal('mtp.png');
 
-  cardHeader = signal('Add Family ID Form');
+  cardHeader = signal('Edit Family ID Form');
   submitted = signal(false);
 
   private membersService = inject(MembersService);

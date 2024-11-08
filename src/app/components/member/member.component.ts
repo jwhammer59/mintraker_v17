@@ -11,11 +11,9 @@ import { MemberTableComponent } from './table/member-table.component';
 import { Member } from '../../models/member';
 import { MembersService } from '../../services/members.service';
 
-import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
-import { TooltipModule } from 'primeng/tooltip';
 
 import { PrimeNGConfig } from 'primeng/api';
 
@@ -30,11 +28,9 @@ import { Observable } from 'rxjs';
     BodyComponent,
     CardComponent,
     MemberTableComponent,
-    ButtonModule,
+    CardModule,
     ConfirmDialogModule,
-    TableModule,
     ToastModule,
-    TooltipModule,
   ],
   templateUrl: './member.component.html',
   styleUrl: './member.component.scss',

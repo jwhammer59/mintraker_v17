@@ -10,10 +10,15 @@
 ></app-header>
 <app-body>
   <app-card>
-    <app-member-table
-      (openEditMember)="goToEditMember($event)"
-      (openMemberDetails)="goToMemberDetails($event)"
-    ></app-member-table>
+    <p-card
+      styleClass="border-1 border-200 border-solid"
+      header="Manage Members"
+    >
+      <app-member-table
+        (openEditMember)="goToEditMember($event)"
+        (openMemberDetails)="goToMemberDetails($event)"
+      ></app-member-table>
+    </p-card>
   </app-card>
 </app-body>
 
