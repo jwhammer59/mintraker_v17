@@ -1,0 +1,125 @@
+@if(familyIds$ | async; as familyIds) {
+<p-table
+  [value]="familyIds"
+  [rows]="10"
+  [rowsPerPageOptions]="[10, 25, 50]"
+  [paginator]="true"
+  [globalFilterFields]="[
+    'familyIdName',
+    'familyIdFullName',
+    'familyIdPhone',
+    'familyIdEmail'
+  ]"
+  [rowHover]="true"
+  dataKey="id"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [showCurrentPageReport]="true"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      <h5 class="m-0">Manage Family Id's</h5>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="familyIdName">
+        <div class="flex justify-content-center">
+          Family ID
+          <p-sortIcon field="familyIdName"></p-sortIcon>
+          <p-columnFilter
+            type="text"
+            field="familyIdName"
+            display="menu"
+          ></p-columnFilter>
+        </div>
+      </th>
+      <th pSortableColumn="familyIdFullName">
+        <div class="flex justify-content-center">
+          Full Name
+          <p-sortIcon field="familyIdFullName"></p-sortIcon>
+          <p-columnFilter
+            type="text"
+            field="familyIdFullName"
+            display="menu"
+          ></p-columnFilter>
+        </div>
+      </th>
+      <th>
+        <div class="flex justify-content-center">Email</div>
+      </th>
+      <th>
+        <div class="flex justify-content-center">Phone</div>
+      </th>
+      <th>
+        <div class="flex justify-content-center">Actions</div>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-familyId>
+    <tr>
+      <td>
+        <div class="flex justify-content-center">
+          {{ familyId.familyIdName }}
+        </div>
+      </td>
+      <td>
+        <div class="flex justify-content-center">
+          {{ familyId.familyIdFullName }}
+        </div>
+      </td>
+      <td>
+        <div class="flex justify-content-center">
+          {{ familyId.familyIdEmail }}
+        </div>
+      </td>
+      <td>
+        <div class="flex justify-content-center">
+          {{ familyId.familyIdPhone }}
+        </div>
+      </td>
+      <td>
+        <div class="flex justify-content-center">
+          <div class="flex justify-content-around">
+            <p-button
+              [text]="true"
+              icon="pi pi-info-circle"
+              [text]="true"
+              severity="info"
+              (onClick)="onFamilyIdDetails(familyId.id)"
+              pTooltip="Details"
+              tooltipPosition="bottom"
+            ></p-button>
+            <p-button
+              icon="pi pi-pencil"
+              [text]="true"
+              severity="warning"
+              (onClick)="onEditFamilyId(familyId.id)"
+              pTooltip="Edit"
+              tooltipPosition="bottom"
+            ></p-button>
+            <p-button
+              icon="pi pi-trash"
+              [text]="true"
+              severity="danger"
+              (onClick)="onDeleteFamilyId(familyId.id)"
+              pTooltip="Edit"
+              tooltipPosition="bottom"
+            ></p-button>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="8">No data found...</td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+    <div class="flex align-items-center justify-content-between">
+      Total Family ID's:
+      {{ familyIds ? familyIds.length : 0 }}
+    </div>
+  </ng-template>
+</p-table>
+}

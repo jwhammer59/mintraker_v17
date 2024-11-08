@@ -7,23 +7,15 @@ import { HeaderComponent } from '../../core/header/header.component';
 import { BodyComponent } from '../../core/body/body.component';
 import { CardComponent } from '../../core/card/card.component';
 
+import { ProviderTableComponent } from './table/provider-table.component';
+
 import { Provider } from '../../models/provider';
 import { ProvidersService } from '../../services/providers.service';
 
-import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { TableModule } from 'primeng/table';
-import { TooltipModule } from 'primeng/tooltip';
 import { ToastModule } from 'primeng/toast';
 
-import {
-  PrimeNGConfig,
-  MessageService,
-  ConfirmationService,
-  ConfirmEventType,
-} from 'primeng/api';
+import { PrimeNGConfig } from 'primeng/api';
 
 import { Observable } from 'rxjs';
 
@@ -36,12 +28,8 @@ import { Observable } from 'rxjs';
     HeaderComponent,
     BodyComponent,
     CardComponent,
-    ButtonModule,
+    ProviderTableComponent,
     ConfirmDialogModule,
-    IconFieldModule,
-    InputIconModule,
-    TableModule,
-    TooltipModule,
     ToastModule,
   ],
   templateUrl: './provider.component.html',
@@ -58,8 +46,6 @@ export class ProviderComponent implements OnInit {
   private providersService = inject(ProvidersService);
   private ngZone = inject(NgZone);
   private router = inject(Router);
-  private messageService = inject(MessageService);
-  private confirmationService = inject(ConfirmationService);
   private primengConfig = inject(PrimeNGConfig);
 
   allProviders$!: Observable<Provider[]>;
@@ -91,42 +77,6 @@ export class ProviderComponent implements OnInit {
   goToProviderDetail(id: string) {
     this.ngZone.run(() => {
       this.router.navigate([`provider-detail/${id}`]);
-    });
-  }
-
-  onDeleteProvider(id: string) {
-    this.confirmationService.confirm({
-      message: 'Are you sure that you want to proceed?',
-      header: 'Confirmation',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.messageService.add({
-          severity: 'info',
-          summary: 'Confirmed',
-          detail: 'Provider Deleted!!',
-        });
-        this.providersService.deleteProvider(id);
-        this.confirmationService.close();
-      },
-      reject: (type: any) => {
-        switch (type) {
-          case ConfirmEventType.REJECT:
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Rejected',
-              detail: 'You have rejected Provider deletion.',
-            });
-            break;
-          case ConfirmEventType.CANCEL:
-            this.messageService.add({
-              severity: 'warn',
-              summary: 'Cancelled',
-              detail: 'You have cancelled Provider deletion.',
-            });
-            break;
-        }
-        this.confirmationService.close();
-      },
     });
   }
 }
