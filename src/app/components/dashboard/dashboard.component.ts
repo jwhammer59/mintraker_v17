@@ -1,4 +1,4 @@
-import { Component, NgZone, inject } from '@angular/core';
+import { Component, NgZone, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { HeaderComponent } from '../../core/header/header.component';
@@ -29,6 +29,11 @@ import { CardModule } from 'primeng/card';
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
+  headerTitle = signal('Dashboard');
+  headerIcon = signal('pi pi-fw pi-objects-column');
+  headerLogo = signal('mtp.png');
+  headerBtnVisible = signal(false);
+
   private ngZone = inject(NgZone);
   private router = inject(Router);
 

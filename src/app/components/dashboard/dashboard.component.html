@@ -1,4 +1,9 @@
-<app-header></app-header>
+<app-header
+  [title]="headerTitle()"
+  [icon]="headerIcon()"
+  [logo]="headerLogo()"
+  [buttonVisible]="headerBtnVisible()"
+></app-header>
 <app-body>
   <app-card>
     <p-card
